@@ -531,3 +531,30 @@ function children_pages($post_id) {
 
 	return $output;
 }
+
+/*
+ * Get the kodeks by which 
+ */
+ 
+function get_valid_kodeks($post=NULL){
+			// child_pages od "novinarski kodeks" p=1866
+		    $kodeksi=get_children(array('post_parent' => 1866, 'order' => 'DESC', 'post_type'=>'page'));
+			
+			//če post ni bil podan, poberi trenutno prikazan post
+			if($post)
+				$post_time = $post->post_date;
+			else
+				$post_time = get_post_time('c');
+			foreach($kodeksi as $kodeks)
+			{
+				//iteriramo po kodeksih nazaj dokler "razsodba_date" > "kodeks_date"
+				//ko je pogoj ispolnjen, pomeni, da smo našli prvi kodeks, ki je starejši od razsodbe
+				//torej je bil v veljavi v času razsodbe
+				
+				if(strtotime($kodeks->post_date) < strtotime(get_post_time('c')))
+				{	
+					break;
+				}
+			}
+			return $kodeks;
+}

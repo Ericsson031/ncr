@@ -26,7 +26,14 @@ get_header(); ?>
 
 		endwhile; // End of the loop.
 		?>
-
+		
+		<?php
+		$kodeks=get_valid_kodeks();
+		?>
+		<a href="<?php echo get_permalink($kodeks); ?>">
+			Kodeks po katerem je bila sprejeta razsodba - <?php echo $kodeks->post_title ?>
+		</a>
+		
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
