@@ -115,10 +115,13 @@ add_action( 'widgets_init', 'razsodisce_widgets_init' );
  */
 function razsodisce_scripts() {
 	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css' );
+	wp_enqueue_style( 'jquery-ui-css', get_template_directory_uri() . '/css/jquery-ui.min.css' );
+	wp_enqueue_style( 'jquery-ui-theme-css', get_template_directory_uri() . '/css/jquery-ui.theme.min.css' );
 	wp_enqueue_style( 'razsodisce-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'razsodisce-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 	wp_enqueue_script( 'razsodisce-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -293,7 +296,7 @@ function custom_breadcrumbs() {
 		} elseif ($parent == 2102) {
 			$additional_class = ' purple';
 		} else {
-			$additional_class = '';
+			$additional_class = ' purple';
 		}
 
 		// Build the breadcrums
@@ -347,19 +350,21 @@ function custom_breadcrumbs() {
 			 
 			if(!empty($category)) {
 			  
-				// Get last category post is in
-				$last_category = end(array_values($category));
+				// // Get last category post is in
+				// $last_category = end(array_values($category));
 				  
-				// Get parent any categories and create array
-				$get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
-				$cat_parents = explode(',',$get_cat_parents);
+				// // Get parent any categories and create array
+				// $get_cat_parents = rtrim(get_category_parents($last_category->term_id, true, ','),',');
+				// $cat_parents = explode(',',$get_cat_parents);
 				  
-				// Loop through parent categories and store in variable $cat_display
-				$cat_display = '';
-				foreach($cat_parents as $parents) {
-					$cat_display .= '<li class="item-cat">'.$parents.'</li>';
-					$cat_display .= '<li class="separator"> ' . $separator . ' </li>';
-				}
+				// // Loop through parent categories and store in variable $cat_display
+				// $cat_display = '';
+				// foreach($cat_parents as $parents) {
+				// 	$cat_display .= '<li class="item-cat">'.$parents.'</li>';
+				// 	$cat_display .= '<li class="separator"> ' . $separator . ' </li>';
+				// }
+
+				$output .= '<li class="item-parent item-parent-2102"><a class="bread-parent bread-parent-2102" href="/delo-ncr/" title="delo NČR">delo NČR</a></li><li class="separator">' . $separator . ' </li><li class="item-2144">Razsodbe</li><li class="separator">' . $separator . ' </li>';
 			 
 			}
 			  
@@ -408,6 +413,7 @@ function custom_breadcrumbs() {
 				   
 				// Get parents in the right order
 				$anc = array_reverse($anc);
+				$parents = '';
 				   
 				// Parent page loop
 				foreach ( $anc as $ancestor ) {
@@ -558,3 +564,9 @@ function get_valid_kodeks($post=NULL){
 			}
 			return $kodeks;
 }
+
+function add_query_vars_filter( $vars ){
+  $vars[] = "leto";
+  return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );
