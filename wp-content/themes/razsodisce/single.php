@@ -25,7 +25,7 @@ get_header(); ?>
 						<div class="col-sm-12">
 							<header class="entry-header">
 								<div class="entry-meta">
-									<?php the_date('d/m/y'); ?>
+									<?php the_date(); ?>
 								</div><!-- .entry-meta -->
 								<?php the_title( '<h1 class="entry-title-sklep">', '</h1>' ); ?>
 							</header><!-- .entry-header -->
@@ -98,7 +98,7 @@ get_header(); ?>
 						<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 							<header class="entry-header">
 								<div class="entry-meta">
-									<?php the_date('d/m/y'); ?>
+									<?php the_date(); ?>
 								</div><!-- .entry-meta -->
 								<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 							</header><!-- .entry-header -->
