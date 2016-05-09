@@ -46,13 +46,17 @@ get_header(); ?>
 									<div class="entry-sidebar-sklep">Gradivo primera</div>
 									<div class="entry-sidebar-sklep">Obravnavani členi</div>
 										<ul class="entry-cleni-sklep">
+											
 											<?php
+											
 											$term_list = wp_get_post_terms($post->ID, 'clen', array("fields" => "names"));
 											foreach ($term_list as $term) { ?>
-												<li><?php echo $term; ?></li>
+												<li title="<?php echo get_clen_content($term); ?>">
+													<?php echo $term; ?>
+												</li>
 											<?php }	?>
 										</ul>
-									<div class="entry-sidebar-sklep">Spoznani kršitev</div>
+									<div class="entry-sidebar-sklep">Akterji</div>
 										<ul class="entry-osebe-sklep">
 											<?php
 											$term_list = wp_get_post_terms($post->ID, 'oseba', array("fields" => "names"));
