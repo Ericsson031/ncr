@@ -122,6 +122,7 @@ function razsodisce_scripts() {
 	wp_enqueue_script( 'razsodisce-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 	wp_enqueue_script( 'razsodisce-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 	wp_enqueue_script( 'jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true );
+	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), null, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -576,6 +577,5 @@ function get_clen_content($clen){
 	$content = get_valid_kodeks()->post_content;
 	$regex = "/".$clen."[\w\W]*?\/h2>([\w\W]*?)<\/div/i";
 	preg_match($regex, $content, $matches);
-	//print_r($matches[1]);
 	return $matches[1];
 }

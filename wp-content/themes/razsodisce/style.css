@@ -1199,6 +1199,11 @@ ul.entry-osebe-sklep {
 	list-style: outside none none;
 }
 
+.tooltip-inner {
+	background-color: #c9c7d9;
+	color: black;
+}
+
 ul.entry-povezave-sklep {
 	margin: 0px;
 	padding: 0px;
@@ -1271,6 +1276,13 @@ a.entry-sidebar-arhiv {
 
 .two-columns .entry-content {
 	margin: 0;
+	font-family: 'PT Serif Caption';
+	font-size: 13px;
+	line-height: 24px;
+}
+
+.page .entry-content {
+	margin: 30px 0 0;
 	font-family: 'PT Serif Caption';
 	font-size: 13px;
 	line-height: 24px;

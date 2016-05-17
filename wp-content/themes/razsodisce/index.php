@@ -51,7 +51,7 @@ get_header(); ?>
 
 
 				</main><!-- #main -->
-				<aside id="secondary" class="widget-area col-sm-6" role="complementary">
+				<aside id="secondary" class="widget-area col-sm-6 home-widget" role="complementary">
 					<?php
 						$r = new WP_Query( apply_filters( 'widget_posts_args', array(
 							'posts_per_page'      => 4,
@@ -68,7 +68,7 @@ get_header(); ?>
 						<ul>
 						<?php while ( $r->have_posts() ) : $r->the_post(); ?>
 							<li>
-								<span class="post-date"><?php echo get_the_date('j/n/y'); ?></span>
+								<div class="post-date"><?php echo get_the_date('j/n/y'); ?></div>
 								<a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a>
 							</li>
 						<?php endwhile; ?>
@@ -80,7 +80,7 @@ get_header(); ?>
 						endif;
 					?>
 					<div class="widget-more">
-						Več
+						VEČ RAZSODB
 					</div>
 				</aside><!-- #secondary -->
 

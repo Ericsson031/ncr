@@ -51,7 +51,7 @@ get_header(); ?>
 											
 											$term_list = wp_get_post_terms($post->ID, 'clen', array("fields" => "names"));
 											foreach ($term_list as $term) { ?>
-												<li title="<?php echo get_clen_content($term); ?>">
+												<li data-toggle="tooltip" data-placement="top" title="<?php echo get_clen_content($term); ?>">
 													<?php echo $term; ?>
 												</li>
 											<?php }	?>
@@ -118,6 +118,11 @@ get_header(); ?>
 			?>
 		
 		</main><!-- #main -->
+		<script type="text/javascript">
+			jQuery(function ($) {
+				$('[data-toggle="tooltip"]').tooltip()
+			})
+		</script>
 	</div><!-- #primary -->
 
 <?php
