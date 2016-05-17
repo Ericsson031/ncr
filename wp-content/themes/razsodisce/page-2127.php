@@ -22,7 +22,7 @@ get_header(); ?>
 			<?php
 			while ( have_posts() ) : the_post(); ?>
 				
-				<?php $titles = children_pages($post->ID); ?>
+				<?php $children = children_pages($post->ID); ?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<div class="row">
@@ -45,14 +45,15 @@ get_header(); ?>
 								</div>
 								<div class="col-sm-15">
 									<div class="tile tile-large orange">
-										<h2><?php echo $titles[0]; ?></h2><br>
+										<h2><?php echo $children[0]->post_title; ?></h2><br>
 										<div class="dl-links">
-											<a href="#" class="dl-pdf">
+											<?php
+												  $file = get_field("pdf_verzija_vsebine", get_latest_kodeks()->ID);
+											      if(!empty($file)): ?>
+											<a href="<?php echo $file; ?>" class="dl-pdf">
 												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
 											</a>
-											<a href="#" class="dl-doc">
-												<img src="<?php echo $dir; ?>/img/icon-doc.png">
-											</a>
+											<?php endif ?>
 										</div>
 									</div>
 								</div>
@@ -62,55 +63,27 @@ get_header(); ?>
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="tile orange">
-										<h2><?php echo $titles[1]; ?></h2>
+										<h2><?php echo $children[1]->post_title; ?></h2>
 										<div class="dl-links">
-											<a href="#" class="dl-pdf">
+											<?php $file = get_field("pdf_verzija_vsebine", $children[1]->ID);
+											      if(!empty($file)): ?>
+											<a href="<?php echo $file; ?>" class="dl-pdf">
 												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
 											</a>
-											<a href="#" class="dl-doc">
-												<img src="<?php echo $dir; ?>/img/icon-doc.png">
-											</a>
+											<?php endif ?>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="tile orange">
-										<h2><?php echo $titles[2]; ?></h2>
+										<h2><?php echo $children[2]->post_title; ?></h2>
 										<div class="dl-links">
-											<a href="#" class="dl-pdf">
+											<?php $file = get_field("pdf_verzija_vsebine", $children[2]->ID);
+											      if(!empty($file)): ?>
+											<a href="<?php echo $file; ?>" class="dl-pdf">
 												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
 											</a>
-											<a href="#" class="dl-doc">
-												<img src="<?php echo $dir; ?>/img/icon-doc.png">
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="tile orange">
-										<h2><?php echo $titles[3]; ?></h2>
-										<div class="dl-links">
-											<a href="#" class="dl-pdf">
-												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
-											</a>
-											<a href="#" class="dl-doc">
-												<img src="<?php echo $dir; ?>/img/icon-doc.png">
-											</a>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-12">
-									<div class="tile orange">
-										<h2><?php echo $titles[4]; ?></h2>
-										<div class="dl-links">
-											<a href="#" class="dl-pdf">
-												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
-											</a>
-											<a href="#" class="dl-doc">
-												<img src="<?php echo $dir; ?>/img/icon-doc.png">
-											</a>
+											<?php endif ?>
 										</div>
 									</div>
 								</div>
@@ -118,14 +91,42 @@ get_header(); ?>
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="tile orange">
-										<h2><?php echo $titles[5]; ?></h2>
+										<h2><?php echo $children[3]->post_title; ?></h2>
 										<div class="dl-links">
-											<a href="#" class="dl-pdf">
+											<?php $file = get_field("pdf_verzija_vsebine", $children[3]->ID);
+											      if(!empty($file)): ?>
+											<a href="<?php echo $file; ?>" class="dl-pdf">
 												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
 											</a>
-											<a href="#" class="dl-doc">
-												<img src="<?php echo $dir; ?>/img/icon-doc.png">
+											<?php endif ?>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="tile orange">
+										<h2><?php echo $children[4]->post_title; ?></h2>
+										<div class="dl-links">
+											<?php $file = get_field("pdf_verzija_vsebine", $children[4]->ID);
+											      if(!empty($file)): ?>
+											<a href="<?php echo $file; ?>" class="dl-pdf">
+												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
 											</a>
+											<?php endif ?>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="tile orange">
+										<h2><?php echo $children[5]->post_title; ?></h2>
+										<div class="dl-links">
+											<?php $file = get_field("pdf_verzija_vsebine", $children[5]->ID);
+											      if(!empty($file)): ?>
+											<a href="<?php echo $file; ?>" class="dl-pdf">
+												<img src="<?php echo $dir; ?>/img/icon-pdf.png">
+											</a>
+											<?php endif ?>
 										</div>
 									</div>
 								</div>

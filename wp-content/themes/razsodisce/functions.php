@@ -531,7 +531,7 @@ function children_pages($post_id) {
 	$children_array = get_children($args);
 
 	foreach ($children_array as $key => $child) {
-		$output[$key] = $child->post_title;
+		$output[$key] = $child;
 	}
 
 	$output = array_reverse($output);
@@ -564,6 +564,11 @@ function get_valid_kodeks($post=NULL){
 				}
 			}
 			return $kodeks;
+}
+
+function get_latest_kodeks(){
+	$kodeks = array_values(get_children(array('post_parent' => 1866, 'order' => 'DESC', 'post_type'=>'page', 'post_count'=>1)));
+	return $kodeks[0];
 }
 
 function add_query_vars_filter( $vars ){
