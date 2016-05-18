@@ -16,7 +16,7 @@ get_header(); ?>
 			while ( have_posts() ) : the_post(); ?>
 
 				<?php
-				$content = explode("Sklep:", get_the_content());
+				$content = preg_split("/Sklep:/i", get_the_content());
 
 				if(count($content) == 2) {
 				?>
