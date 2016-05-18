@@ -62,6 +62,8 @@ get_header(); ?>
 									<?php endif ?>
 											
 									<div class="entry-sidebar-sklep">Gradivo primera</div>
+									<?php $kodeks = get_valid_kodeks();?>
+									<a href="<?php echo $kodeks->guid; ?>">Novinarski kodeks <?php echo $kodeks->post_title; ?></a>
 									<div class="entry-sidebar-sklep">Obravnavani členi</div>
 										<ul class="entry-cleni-sklep">
 											
