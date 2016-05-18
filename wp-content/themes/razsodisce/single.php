@@ -69,19 +69,19 @@ get_header(); ?>
 											
 											<?php
 											
-											$term_list = wp_get_post_terms($post->ID, 'clen', array("fields" => "names"));
+											$term_list = wp_get_post_terms($post->ID, 'clen');
 											foreach ($term_list as $term) { ?>
-												<li data-toggle="tooltip" data-placement="top" title="<?php echo get_clen_content($term); ?>">
-													<?php echo $term; ?>
+												<li data-toggle="tooltip" data-placement="top" title="<?php echo get_clen_content($term->name); ?>">
+													<a href="<?php echo "/?".$term->taxonomy."=".$term->slug?>"><?php echo $term->name; ?></a>
 												</li>
 											<?php }	?>
 										</ul>
 									<div class="entry-sidebar-sklep">Akterji</div>
 										<ul class="entry-osebe-sklep">
 											<?php
-											$term_list = wp_get_post_terms($post->ID, 'oseba', array("fields" => "names"));
+											$term_list = wp_get_post_terms($post->ID, 'oseba');
 											foreach ($term_list as $term) { ?>
-												<li><?php echo $term; ?></li><br>
+												<li><a href="<?php echo "/?".$term->taxonomy."=".$term->slug?>"><?php echo $term->name; ?></a></li><br>
 											<?php }	?>
 										</ul>
 									<div class="entry-sidebar-sklep">Povezane vsebine</div>
