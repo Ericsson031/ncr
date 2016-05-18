@@ -43,6 +43,24 @@ get_header(); ?>
 									</div><!-- .entry-content -->
 								</div>
 								<div class="col-sm-11 col-sm-offset-1">
+									<?php $file = get_field("pdf_verzija_vsebine", $post->ID);
+									    if(!empty($file)): ?>
+									<div class="entry-sidebar-sklep">Tiskana verzija</div>
+											<a href="<?php echo $file; ?>" 
+											
+											<?php $filetype = "";
+											if (strpos($file, '.pdf') !== false)
+												$filetype="pdf";
+											else
+												$filetype="doc"; ?>
+											class="dl-<?php echo $filetype ?>">
+
+												<img src="<?php echo $dir; ?>/img/icon-<?php echo $filetype ?>.png">
+											</a>
+                                            <?php echo array_pop(explode("/", $file));?>									
+									
+									<?php endif ?>
+											
 									<div class="entry-sidebar-sklep">Gradivo primera</div>
 									<div class="entry-sidebar-sklep">Obravnavani členi</div>
 										<ul class="entry-cleni-sklep">
@@ -70,8 +88,6 @@ get_header(); ?>
 										<li><a href="/o-ncr/podlaga-za-delo/pravilnik-o-delu-novinarskega-castnega-razsodisca">Pravilnik o delu NČR</a></li>
 										<li><a href="/o-ncr/podlaga-za-delo/iz-statutov-dns-in-sns">Iz statutov DNS in SNS</a></li>
 										<li><a href="/o-ncr/podlaga-za-delo/listina-o-nedopustnosti-prikritega-oglasevanja-in-zlorabe-novinarskega-prostora">Listina - prikrito oglaševanje</a></li>
-										<li><a href="/o-ncr/podlaga-za-delo/zakon-o-medijih">Zakon o medijih</a></li>
-										<li><a href="/o-ncr/podlaga-za-delo/kodeksi-medijskih-his">Kodeksi medijskih hiš</a></li>
 									</ul>
 
 									<a href="#" class="entry-sidebar-arhiv">Arhiv razsodb</a>
