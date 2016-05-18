@@ -1362,17 +1362,13 @@ a.entry-sidebar-arhiv {
 }
 
 .orange .dl-pdf {
-	float: left;
-	margin-left: 40px;
 	padding: 10px;
-	display: block;
+	display: inline-block;
 }
 
 .orange .dl-doc {
-	float: right;
-	margin-right: 40px;
 	padding: 10px;
-	display: block;
+	display: inline-block;
 }
 
 .purple .dl-pdf {
