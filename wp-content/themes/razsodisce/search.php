@@ -16,6 +16,7 @@ get_header(); ?>
 		if ( have_posts() ) : ?>
 
 			<header class="page-header">
+				<?php the_archive_description( '<h1 class="page-title">', '</h1>' ); ?>
 				<h1 class="page-title"><?php printf( esc_html__( 'Search Results for: %s', 'razsodisce' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 			</header><!-- .page-header -->
 

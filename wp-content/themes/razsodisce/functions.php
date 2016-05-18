@@ -402,7 +402,12 @@ function custom_breadcrumbs() {
 		} else if ( is_category() ) {
 			   
 			// Category page
-			$output .= '<li class="item-current item-cat"><strong class="bread-current bread-cat">' . single_cat_title('', false) . '</strong></li>';
+			$category = get_category(get_query_var( 'cat' ));
+			if(!empty($category->description))
+				$name = $category->description;
+			else
+				$name = $category->name;
+			$output .= '<li class="item-parent item-parent-2102">Delo NČR</li><li class="separator">' . $separator . ' </li><li class="item">'.$name.'</li>';
 			   
 		} else if ( is_page() ) {
 			   
