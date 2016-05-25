@@ -1204,7 +1204,8 @@ ul.entry-osebe-sklep {
 	color: black;
 }
 
-ul.entry-povezave-sklep {
+ul.entry-povezave-sklep,
+ul.entry-sidebar-kodeks {
 	margin: 0px;
 	padding: 0px;
 	list-style-position: inside;
@@ -1215,10 +1216,12 @@ ul.entry-cleni-sklep li {
 	display: inline-block;
 	font-size: 14px;
 	margin: 0 8px 4px 0px;
-	color: #4f89b9;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #4f89b9;
 }
 
+ul.entry-cleni-sklep li a {
+	color: #4f89b9;
+}
 
 ul.entry-osebe-sklep li {
 	display: inline-block;
@@ -1230,13 +1233,21 @@ ul.entry-osebe-sklep li {
 	margin: 6px 0px;
 }
 
-ul.entry-osebe-sklep li:first-child {
+ul.entry-osebe-sklep li:hover,
+ul.entry-osebe-sklep li:active,
+ul.entry-osebe-sklep li:focus {
 	background-color: #4f89b9;
-	color: white;
 	border: 1px solid #4f89b9;
 }
 
-ul.entry-povezave-sklep li {
+ul.entry-osebe-sklep li:hover a,
+ul.entry-osebe-sklep li:active a,
+ul.entry-osebe-sklep li:focus a {
+	color: white;
+}
+
+ul.entry-povezave-sklep li,
+ul.entry-sidebar-kodeks li {
 	font-size: 14px;
 	margin: 0 8px 4px 0px;
 	color: #4f89b9;
@@ -1244,7 +1255,8 @@ ul.entry-povezave-sklep li {
 	line-height: 20px;
 }
 
-ul.entry-povezave-sklep li a {
+ul.entry-povezave-sklep li a,
+ul.entry-sidebar-kodeks li a {
 	color: #4f89b9;
 }
 

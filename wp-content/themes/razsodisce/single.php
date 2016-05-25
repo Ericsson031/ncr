@@ -57,13 +57,17 @@ get_header(); ?>
 
 												<img src="<?php echo $dir; ?>/img/icon-<?php echo $filetype ?>.png">
 											</a>
-                                            <?php echo array_pop(explode("/", $file));?>									
+                                            <?php echo array_pop(explode("/", $file)); ?>									
 									
 									<?php endif ?>
 											
 									<div class="entry-sidebar-sklep">Gradivo primera</div>
 									<?php $kodeks = get_valid_kodeks();?>
-									<a href="<?php echo $kodeks->guid; ?>">Novinarski kodeks <?php echo $kodeks->post_title; ?></a>
+									<ul class="entry-sidebar-kodeks">
+										<li>
+											<a href="<?php echo $kodeks->guid; ?>">Novinarski kodeks <?php echo $kodeks->post_title; ?></a>
+										</li>
+									</ul>
 									<div class="entry-sidebar-sklep">Obravnavani členi</div>
 										<ul class="entry-cleni-sklep">
 											

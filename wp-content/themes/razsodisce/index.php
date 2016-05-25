@@ -79,9 +79,9 @@ get_header(); ?>
 
 						endif;
 					?>
-					<div class="widget-more">
+					<a href="/category/razsodba" class="widget-more">
 						VEČ RAZSODB
-					</div>
+					</a>
 				</aside><!-- #secondary -->
 
 			</div>
