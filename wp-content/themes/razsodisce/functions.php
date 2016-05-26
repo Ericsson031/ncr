@@ -590,3 +590,10 @@ function get_clen_content($clen){
 	return $matches[1];
 }
 
+
+function custom_query_vars_filter($vars) {
+  $vars[] = 'y';
+  $vars[] .= 'c';
+  return $vars;
+}
+add_filter( 'query_vars', 'custom_query_vars_filter' );
