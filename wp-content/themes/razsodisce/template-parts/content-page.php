@@ -11,7 +11,10 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<h1 class="entry-title">
+		<?php // if the page parent is kodeks, that we display this custom title ?>
+		<?php if("1866"==wp_get_post_parent_id( get_the_id())) echo "Novinarski kodeks - "?>
+		<?php the_title(); ?> </h1>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
