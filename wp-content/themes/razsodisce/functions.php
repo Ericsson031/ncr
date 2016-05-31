@@ -117,11 +117,13 @@ function razsodisce_scripts() {
 	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css' );
 	wp_enqueue_style( 'jquery-ui-css', get_template_directory_uri() . '/css/jquery-ui.min.css' );
 	wp_enqueue_style( 'jquery-ui-theme-css', get_template_directory_uri() . '/css/jquery-ui.theme.min.css' );
+	wp_enqueue_style( 'jquery-bx-slider', get_template_directory_uri() . '/css/jquery.bxslider.css' );
 	wp_enqueue_style( 'razsodisce-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'razsodisce-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 	wp_enqueue_script( 'razsodisce-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 	wp_enqueue_script( 'jquery-ui', get_template_directory_uri() . '/js/jquery-ui.min.js', array('jquery'), null, true );
+	wp_enqueue_script( 'jquery-bx-slider', get_template_directory_uri() . '/js/jquery.bxslider.min.js', array('jquery'), null, true );
 	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), null, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -506,7 +508,7 @@ function custom_breadcrumbs() {
 		} else if ( is_search() ) {
 		   
 			// Search results page
-			$output .= '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" title="Search results for: ' . get_search_query() . '">Search results for: ' . get_search_query() . '</strong></li>';
+			$output .= '<li class="item-current item-current-' . get_search_query() . '"><strong class="bread-current bread-current-' . get_search_query() . '" title="Rezultati iskanja za: ' . get_search_query() . '">Rezultati iskanja za: ' . get_search_query() . '</strong></li>';
 		   
 		} elseif ( is_404() ) {
 			   

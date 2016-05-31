@@ -1653,6 +1653,82 @@ div.wpcf7-validation-errors {
     border: 1px solid #dc7e74;
 }
 
+.search input[type="text"] {
+	width: 100%;
+	height: 30px;
+	background-color: #a2b9d6;
+	border: none;
+	border-radius: 0;
+	padding: 0 10px;
+	font-size: 12px;
+	margin: 0px 0 25px;
+	color: #3b3a3c;
+}
+
+.search input[type=submit] {
+	float: right;
+	margin-top: 10px;
+}
+
+.search .help-text {
+	font-size: 12px;
+	font-family: 'Work Sans';
+	margin-top: 15px;
+}
+
+.search ul {
+	list-style: inside none none;
+	margin: 0px 0px 25px;
+	padding: 0px;
+}
+
+.search ul li a {
+	color: #4f89b9;
+	text-decoration: underline;
+	font-size: 12px;
+}
+
+.search .slider-years {
+	list-style: inside none none;
+	margin: 0px 0px 25px;
+	padding: 0px;
+}
+
+.search-area .page-header {
+	margin-bottom: 20px;
+}
+
+.search-area .page-header .previous-years {
+	font-size: 12px;
+	margin-top: -6px;
+}
+
+.search-area .page-header .previous-years .slider-years {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.search-area .page-header .previous-years .slider-years a {
+	padding: 0 36px;
+}
+
+.bx-wrapper .bx-viewport {
+	box-shadow: none;
+	border: none;
+	left: 0px;
+}
+
+.bx-wrapper .bx-prev {
+    left: 0px;
+}
+
+.bx-wrapper .bx-next {
+    right: 0px;
+}
+
 /*--------------------------------------------------------------
 ## Asides
 --------------------------------------------------------------*/
