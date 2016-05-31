@@ -8,7 +8,33 @@
  */
 
 get_header(); ?>
-
+	<script>
+  jQuery(function() {
+    var availableOsebe = [
+    <?php 
+	
+		foreach(get_terms( 'oseba') as $oseba)
+			echo '"'.$oseba->name.'",';
+	
+	?>
+    ];
+    jQuery( "#oseba" ).autocomplete({
+      source: availableOsebe
+    });
+	
+	var availableMedij = [
+    <?php 
+	
+		foreach(get_terms( 'medij') as $medij)
+			echo '"'.$medij->name.'",';
+	
+	?>
+    ];
+    jQuery( "#medij" ).autocomplete({
+      source: availableMedij
+    });
+  });
+	</script>
 	<section id="primary" class="content-area search-area">
 		<main id="main" class="site-main row" role="main">
 
@@ -81,12 +107,14 @@ get_header(); ?>
 				</header><!-- .page-header -->
 				<div class="two-columns">
 					<?php
+						//print_r(get_terms( 'oseba'));
 						if ( have_posts() ) :
 							/* Start the Loop */
 							rewind_posts();
 							while ( have_posts() ) : the_post();
 								// display only posts that match the selected year
-								if(get_the_time('Y') == $current_year) ?>
+								
+								if(get_the_time('Y') == $current_year): ?>
 
 									<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 										<header class="entry-header">
@@ -96,8 +124,9 @@ get_header(); ?>
 											<?php the_title(); ?>
 										</a>
 									</article>
-
-							<?php endwhile;
+							<?php 
+							endif; 
+							endwhile;
 
 							the_posts_navigation();
 
