@@ -313,7 +313,7 @@ function custom_breadcrumbs() {
 			  
 			$output .= '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . post_type_archive_title($prefix, false) . '</strong></li>';
 			  
-		} else if ( is_archive() && is_tax() && !is_category() && !is_tag() &&!is_search()) {
+		} else if ( is_archive() && is_tax() && !is_category() && !is_tag() && !is_search()) {
 			  
 			// If post is a custom post type
 			$post_type = get_post_type();
@@ -326,7 +326,6 @@ function custom_breadcrumbs() {
 			  
 				$output .= '<li class="item-cat item-custom-post-type-' . $post_type . '"><a class="bread-cat bread-custom-post-type-' . $post_type . '" href="' . $post_type_archive . '" title="' . $post_type_object->labels->name . '">' . $post_type_object->labels->name . '</a></li>';
 				$output .= '<li class="separator"> ' . $separator . ' </li>';
-			  
 			}
 			  
 			$custom_tax_name = get_queried_object()->name;

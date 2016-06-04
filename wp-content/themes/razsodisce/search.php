@@ -79,8 +79,6 @@ get_header(); ?>
 			</div>
 			<div class="col-sm-17 col-sm-offset-2">
 				<header class="page-header row">
-				
-				
 					<?php 
 						if(have_posts()):
 						

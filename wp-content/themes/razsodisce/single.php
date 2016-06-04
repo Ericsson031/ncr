@@ -80,6 +80,15 @@ get_header(); ?>
 												</li>
 											<?php }	?>
 										</ul>
+									<div class="entry-sidebar-sklep">Medij</div>
+										<ul class="entry-osebe-sklep">
+											<?php
+											$term_list = wp_get_post_terms($post->ID, 'medij');
+											foreach ($term_list as $term) { ?>
+												<li><a href="<?php echo "/?".$term->taxonomy."=".$term->slug?>"><?php echo $term->name; ?></a></li><br>
+											<?php }	?>
+										</ul>
+										
 									<div class="entry-sidebar-sklep">Akterji</div>
 										<ul class="entry-osebe-sklep">
 											<?php
