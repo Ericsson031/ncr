@@ -313,7 +313,7 @@ function custom_breadcrumbs() {
 			  
 			$output .= '<li class="item-current item-archive"><strong class="bread-current bread-archive">' . post_type_archive_title($prefix, false) . '</strong></li>';
 			  
-		} else if ( is_archive() && is_tax() && !is_category() && !is_tag() ) {
+		} else if ( is_archive() && is_tax() && !is_category() && !is_tag() &&!is_search()) {
 			  
 			// If post is a custom post type
 			$post_type = get_post_type();
