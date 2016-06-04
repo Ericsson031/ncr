@@ -285,7 +285,10 @@ function custom_breadcrumbs() {
 	   
 	// Do not display on the homepage
 	if ( !is_front_page() ) {
-
+		
+		$additional_class = ' purple';
+		
+		if(!is_search()){
 		// Check if parent equals
 		if ($post->post_parent)	{
 			$ancestors=get_post_ancestors($post->ID);
@@ -293,13 +296,10 @@ function custom_breadcrumbs() {
 			$parent = $ancestors[$root];
 		} else {
 			$parent = $post->ID;
-		}
-		if ($parent == 2100) {
+		}		
+		
+		if ($parent == 2100)
 			$additional_class = ' yellow';
-		} elseif ($parent == 2102) {
-			$additional_class = ' purple';
-		} else {
-			$additional_class = ' purple';
 		}
 
 		// Build the breadcrums
@@ -578,11 +578,11 @@ function get_latest_kodeks(){
 	return $kodeks[0];
 }
 
-function add_query_vars_filter( $vars ){
-  $vars[] = "leto";
-  return $vars;
-}
-add_filter( 'query_vars', 'add_query_vars_filter' );
+//function add_query_vars_filter( $vars ){
+//  $vars[] = "leto";
+//  return $vars;
+//}
+//add_filter( 'query_vars', 'add_query_vars_filter' );
 
 function get_clen_content($clen){
 	$clen=str_replace(array('-','.',' ','Č', 'č'), array('', '', '', 'c', 'c'), $clen);
@@ -599,3 +599,33 @@ function custom_query_vars_filter($vars) {
   return $vars;
 }
 add_filter( 'query_vars', 'custom_query_vars_filter' );
+
+add_action( 'pre_get_posts', 'clean_vars' );
+function clean_vars($query) {
+	global $wp_query;
+	if($query->is_main_query()){
+		//print_r($query);
+		if($query->get('oseba'))
+		{
+			$oseba = urldecode($query->get('oseba'));
+			$oseba = str_replace(' ', '-', $oseba);
+			$query->set('oseba', $oseba);
+		}
+		if($query->get('medij'))
+		{
+			$medij = urldecode($query->get('medij'));
+			$medij = str_replace(' ', '-', $medij);
+			$query->set('medij', $medij);
+		}
+		if($query->get('clen'))
+		{
+			$clen = urldecode($query->get('clen'));
+			$clen = preg_replace('/[^0-9,]/','',$clen);
+			$clen = explode(',', $clen);
+			$clen = join('-clen,', $clen);
+			$clen = $clen."-clen";
+			$query->set('clen', $clen);
+		}
+		
+	}
+}

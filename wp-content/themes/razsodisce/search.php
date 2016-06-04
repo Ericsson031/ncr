@@ -41,12 +41,12 @@ get_header(); ?>
 			<div class="col-sm-5">
 				<h2>Napredno iskanje</h2>
 				<div class="search">
-					<form>
-						<input type="text" name="oseba" id="oseba" placeholder="Vpiši akterja" value="<?php echo get_query_var('oseba'); ?>">
-						<input type="text" name="medij" id="medij" placeholder="Vpiši medij" value="<?php echo get_query_var('medij'); ?>">
+					<form action="/" method="get">
+						<input type="text" name="oseba" id="oseba" placeholder="Vpiši akterja" value="<?php echo str_replace('-',' ', get_query_var('oseba')); ?>">
+						<input type="text" name="medij" id="medij" placeholder="Vpiši medij" value="<?php echo str_replace('-',' ', get_query_var('medij')); ?>">
 						<div style="display: inline-block;">
 							<span style="float: left; font-size: 14px; line-height: 15px;">Vpiši člene* <br> kršitve kodeksa</span>
-						<input type="text" name="clen" id="clen" value="<?php echo get_query_var('clen'); ?>" style="width: 30%; margin: 0px; float: right;">
+						<input type="text" name="clen" id="clen" value="<?php echo preg_replace('/[^0-9,]/','',get_query_var('clen')); ?>" style="width: 30%; margin: 0px; float: right;">
 						</div>
 						<div class="help-text">Člene ločujte z vejicami (3,4)</div>
 						
@@ -73,13 +73,17 @@ get_header(); ?>
 						</select>
 						<input type="submit" value="Išči" style="float: right;">
 						<input type="hidden" name="y" value="">
+						<input type="hidden" name="s" value="">
 					</form>
 				</div>
 			</div>
 			<div class="col-sm-17 col-sm-offset-2">
 				<header class="page-header row">
-					<?php //the_archive_description( '<h1 class="page-title">', get_query_var('y', $years[0]).'</h1>' ); 
-						/* yearly pagination */
+				
+				
+					<?php 
+						if(have_posts()):
+						
 						$years = array();
 						while ( have_posts() ) : the_post(); 
 						$years[]=get_the_time('Y');
@@ -104,6 +108,8 @@ get_header(); ?>
 							<?php endforeach; ?>
 						</div>
 					</div>
+					<?php endif; ?>
+					
 				</header><!-- .page-header -->
 				<div class="two-columns">
 					<?php
