@@ -143,7 +143,19 @@ get_header(); ?>
 									</a>
 								</div>
 								<div class="col-sm-12">
-									<div class="tile orange"></div>
+									<a href="<?php echo $children[6]->guid;?>">
+										<div class="tile orange">
+											<h2><?php echo $children[6]->post_title; ?></h2>
+											<div class="dl-links">
+												<?php $file = get_field("pdf_verzija_vsebine", $children[6]->ID);
+													  if(!empty($file)): ?>
+												<a href="<?php echo $file; ?>" class="dl-pdf">
+													<img src="<?php echo $dir; ?>/img/icon-pdf.png">
+												</a>
+												<?php endif ?>
+											</div>
+										</div>
+									</a>
 								</div>
 							</div>
 						</div>
