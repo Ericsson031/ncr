@@ -62,7 +62,7 @@ function razsodisce_setup() {
 	/*
 	 * Enable support for Post Formats.
 	 * See https://developer.wordpress.org/themes/functionality/post-formats/
-	 */
+	 
 	add_theme_support( 'post-formats', array(
 		'aside',
 		'image',
@@ -70,6 +70,7 @@ function razsodisce_setup() {
 		'quote',
 		'link',
 	) );
+	*/
 
 	// Set up the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'razsodisce_custom_background_args', array(

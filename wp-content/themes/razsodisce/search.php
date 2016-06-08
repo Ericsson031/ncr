@@ -89,13 +89,23 @@ get_header(); ?>
 						$years=array_unique($years);
 						$current_year=get_query_var('y', $years[0]);
 						if($current_year=="")
-							$current_year=$years[0];	
+							$current_year=$years[0];
+
+						if( $wp_query->post_count > 50)
+							$pagination = true;
+						else
+							$pagination = false;
 					?>
 					<h2 class="col-sm-7"><?php if (is_category( ))
 								echo $cat->description." ".$current_year;
 							  else
-								echo "Rezultati iskanja ".$current_year;?>
+								if($pagination)
+									echo "Rezultati iskanja ".$current_year;
+								else
+									echo "Rezultati iskanja";
+							?>
 					</h2>
+					<?php if($pagination):?>
 					<div class="col-sm-16 col-sm-offset-1 previous-years">
 						<div>Pretekle razsodbe po letih</div>
 						<div class="slider-years">
@@ -106,7 +116,7 @@ get_header(); ?>
 							<?php endforeach; ?>
 						</div>
 					</div>
-					<?php endif; ?>
+					<?php endif;endif; ?>
 					
 				</header><!-- .page-header -->
 				<div class="two-columns">
@@ -118,8 +128,7 @@ get_header(); ?>
 							while ( have_posts() ) : the_post();
 								// display only posts that match the selected year
 								
-								if(get_the_time('Y') == $current_year): ?>
-
+								if(!$pagination or get_the_time('Y') == $current_year): ?>
 									<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 										<header class="entry-header">
 											<?php the_time('d.m.Y'); ?>
