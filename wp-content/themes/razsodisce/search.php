@@ -40,7 +40,7 @@ get_header(); ?>
 
 			<div class="col-sm-5">
 				<h2>Napredno iskanje</h2>
-				<div class="search">
+				<div class="search-form">
 					<form action="/" method="get">
 						<input type="text" name="oseba" id="oseba" placeholder="Vpiši akterja" value="<?php echo str_replace('-',' ', get_query_var('oseba')); ?>">
 						<input type="text" name="medij" id="medij" placeholder="Vpiši medij" value="<?php echo str_replace('-',' ', get_query_var('medij')); ?>">

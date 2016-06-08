@@ -24,8 +24,9 @@ get_header(); ?>
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<div class="col-sm-12">
 							<header class="entry-header">
-								<div class="entry-meta">
+								<div class="entry-meta">									
 									<?php the_date(); ?>
+									<?php edit_post_link(); ?>
 								</div><!-- .entry-meta -->
 								<?php the_title( '<h1 class="entry-title-sklep">', '</h1>' ); ?>
 							</header><!-- .entry-header -->

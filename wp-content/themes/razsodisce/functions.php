@@ -171,7 +171,7 @@ function create_clen_taxonomies() {
 			'update_item'       => 'Posodobi člen',
 			'add_new_item'      => 'Dodaj novi člen',
 			'new_item_name'     => 'Novi člen',
-			'menu_name'         => 'Člen',
+			'menu_name'         => 'Členi',
 		);
 
 		$args = array(
@@ -197,7 +197,7 @@ function create_oseba_taxonomies() {
 			'update_item'       => 'Posodobi osebo',
 			'add_new_item'      => 'Dodaj novo osebo',
 			'new_item_name'     => 'Nova oseba',
-			'menu_name'         => 'Oseba',
+			'menu_name'         => 'Osebe',
 		);
 
 		$args = array(
@@ -223,7 +223,7 @@ function create_medij_taxonomies() {
 			'update_item'       => 'Posodobi medij',
 			'add_new_item'      => 'Dodaj nov medij',
 			'new_item_name'     => 'Nov medij',
-			'menu_name'         => 'Medij',
+			'menu_name'         => 'Mediji',
 		);
 
 		$args = array(
