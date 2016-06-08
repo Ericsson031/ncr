@@ -585,11 +585,13 @@ function get_latest_kodeks(){
 //add_filter( 'query_vars', 'add_query_vars_filter' );
 
 function get_clen_content($clen){
-	$clen=str_replace(array('-','.',' ','Č', 'č'), array('', '', '', 'c', 'c'), $clen);
-	$content = get_valid_kodeks()->post_content;
-	$regex = "/".$clen."[\w\W]*?\/h3>([\w\W]*?)<\/div/i";
-	preg_match($regex, $content, $matches);
-	return $matches[1];
+		$clen=str_replace(array('-','.',' ','Č', 'č'), array('', '', '', 'c', 'c'), $clen);
+		$content = get_valid_kodeks()->post_content;
+		$regex = "/".$clen."[\w\W]*?\/h3>([\w\W]*?)<(\/div|span)/i";
+		preg_match($regex, $content, $matches);
+		if (count($matches)>1)
+			return $matches[1];
+		return "";
 }
 
 

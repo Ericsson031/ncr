@@ -59,17 +59,16 @@ get_header(); ?>
 								</li>
 							<?php endforeach; ?>
 						</ul>
-						<?php if (is_category( )) {
+						<?php
 							  $cat = get_query_var('cat');
-							  $cat = get_category ($cat);
-							 }?>
+							 ?>
 						
-						<select name="category" id="category">
-							<option value="">Status razsodbe</option>
-							<option value="prekinjen_primer" <?php if ("prekinjen_primer"==$cat->slug) echo "selected"; ?>>
-							Prekinjen primer</option>
-							<option value="razsodba" <?php if ("razsodba"==$cat->slug) echo "selected"; ?>>
+						<select name="cat" id="category">
+							<option value="">Vsi primeri</option>
+							<option value="2" <?php if (2==$cat) echo "selected"; ?>>
 							Sprejeta razsodba</option>
+							<option value="3" <?php if (3==$cat) echo "selected"; ?>>
+							Prekinjen primer</option>
 						</select>
 						<input type="submit" value="Išči" style="float: right;">
 						<input type="hidden" name="y" value="">
@@ -79,7 +78,8 @@ get_header(); ?>
 			</div>
 			<div class="col-sm-17 col-sm-offset-2">
 				<header class="page-header row">
-					<?php 
+					<?php 					
+							  
 						if(have_posts()):
 						
 						$years = array();
@@ -96,8 +96,12 @@ get_header(); ?>
 						else
 							$pagination = false;
 					?>
-					<h2 class="col-sm-7"><?php if (is_category( ))
+					<h2 class="col-sm-7">
+						<?php if (is_category( ))
+							{
+								$cat = get_category($cat);
 								echo $cat->description." ".$current_year;
+							}
 							  else
 								if($pagination)
 									echo "Rezultati iskanja ".$current_year;
