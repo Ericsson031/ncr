@@ -100,7 +100,10 @@ get_header(); ?>
 						<?php if (is_category( ))
 							{
 								$cat = get_category($cat);
-								echo $cat->description." ".$current_year;
+								if($pagination)
+									echo $cat->description." ".$current_year;
+								else
+									echo $cat->description;
 							}
 							  else
 								if($pagination)
@@ -112,7 +115,7 @@ get_header(); ?>
 					<?php if($pagination):?>
 					<div class="col-sm-16 col-sm-offset-1 previous-years">
 						<div>Pretekle razsodbe po letih</div>
-						<div class="slider-years">
+						<div class="slider-years" >
 							<?php foreach($years as $year):?>
 								<div class="slide">
 									<a href="<?php echo add_query_arg( 'y', $year);?>"><?php echo $year; ?></a>
@@ -169,8 +172,10 @@ get_header(); ?>
 				maxSlides: 4,
 				moveSlides: 1,
 				slideMargin: 0,
-				pager: false
+				pager: false,
+				startSlide:0,
 			});
+			$('.slider-years').css("display", "block");
 		});
 	</script>
 

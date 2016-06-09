@@ -63,12 +63,12 @@ get_header(); ?>
 						if ($r->have_posts()) :
 						?>
 						<div class="widget-title">
-							Zadnje razsodbe
+							Zadnje objave
 						</div>
 						<ul>
 						<?php while ( $r->have_posts() ) : $r->the_post(); ?>
 							<li>
-								<div class="post-date"><?php echo get_the_date('j/n/y'); ?></div>
+								<div class="post-date"><?php echo get_the_date('j.n.y'); ?></div>
 								<a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a>
 							</li>
 						<?php endwhile; ?>
