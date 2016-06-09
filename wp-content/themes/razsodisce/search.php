@@ -113,7 +113,7 @@ get_header(); ?>
 							?>
 					</h2>
 					<?php if($pagination):?>
-					<div class="col-sm-16 col-sm-offset-1 previous-years">
+					<div class="col-sm-16 col-sm-offset-1 previous-years" style="display:none;">
 						<div>Pretekle razsodbe po letih</div>
 						<div class="slider-years" >
 							<?php foreach($years as $year):?>
@@ -163,6 +163,7 @@ get_header(); ?>
 	</section><!-- #primary -->
 	<script type="text/javascript">
 		jQuery(document).ready(function($){
+			$('.previous-years').css('display','block');
 			$('#category').selectmenu({width : '100%'});
 			$('.slider-years').bxSlider({
 				infiniteLoop: false,
@@ -174,8 +175,7 @@ get_header(); ?>
 				slideMargin: 0,
 				pager: false,
 				startSlide:0,
-			});
-			$('.slider-years').css("display", "block");
+			});			
 		});
 	</script>
 
