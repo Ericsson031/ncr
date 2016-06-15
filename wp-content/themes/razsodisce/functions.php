@@ -269,9 +269,9 @@ function search_form() {
 /**
  * Breadcrumbs.
  */
-function custom_breadcrumbs(){return "";}
+//function custom_breadcrumbs(){return "";}
  
- /*
+
 function custom_breadcrumbs() {
 	   
 	// Settings
