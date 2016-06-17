@@ -1274,19 +1274,19 @@ a.entry-sidebar-arhiv {
 	column-count: 2;
 }
 
-.two-columns article {
+.articles article {
 	-webkit-column-break-inside: avoid;
 	          page-break-inside: avoid;
 	               break-inside: avoid;
 }
 
-.two-columns .entry-header {
+.articles .entry-header {
 	font-family: 'PT Serif Caption';
 	font-size: 14px;
 	font-weight: 700;
 }
 
-.two-columns .entry-content {
+.articles .entry-content {
 	margin: 0;
 	font-family: 'PT Serif Caption';
 	font-size: 13px;

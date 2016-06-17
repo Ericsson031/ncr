@@ -90,11 +90,19 @@ get_header(); ?>
 						$current_year=get_query_var('y', $years[0]);
 						if($current_year=="")
 							$current_year=$years[0];
-
+						
+						/*
 						if( $wp_query->post_count > 50)
 							$pagination = true;
 						else
 							$pagination = false;
+						*/
+						
+						if(is_search())
+							$pagination = false;
+						else
+							$pagination = true;							
+						
 					?>
 					<h2 class="col-sm-7">
 						<?php if (is_category( ))
@@ -126,7 +134,7 @@ get_header(); ?>
 					<?php endif;endif; ?>
 					
 				</header><!-- .page-header -->
-				<div class="two-columns">
+				<div class="<?php if($wp_query->post_count!=1) echo "two-columns"; ?> articles">
 					<?php
 						//print_r(get_terms( 'oseba'));
 						if ( have_posts() ) :
