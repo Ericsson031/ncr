@@ -1014,7 +1014,7 @@ a:active {
 }
 
 .widget-title {
-	margin: 0 0 80px;
+	margin: 0 0 30px;
 	font-size: 18px;
 	font-weight: 700;
 	line-height: 14px;
@@ -1171,7 +1171,7 @@ a.vlozite-pritozbo:visited {
 }
 
 .entry-title {
-	font-size: 18px;
+	font-size: 19px;
 	margin: 0;
 }
 
@@ -1187,7 +1187,7 @@ a.vlozite-pritozbo:visited {
 }
 
 .entry-sidebar-sklep {
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: 700;
 	margin: 40px 0px 15px;
 }
@@ -1360,9 +1360,10 @@ a.entry-sidebar-arhiv {
 	height: 460px;
 }
 
-.tile h2 {
+/*.tile h2*/ 
+h2 {
 	font-family: 'Work Sans';
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: 700;
 }
 

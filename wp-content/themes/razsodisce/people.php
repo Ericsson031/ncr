@@ -8,7 +8,7 @@
 		</div>
 		<div class="col-sm-8">
 			<img src="<?php echo $dir; ?>/clani/Jelena_Aščič.jpg">
-			<span class="people-name">Jelena Aščič</span>
+			<span class="people-name">Jelena Aščić</span>
 			<span class="people-title">podpredsednica</span>
 		</div>
 	</div>
