@@ -62,15 +62,17 @@ function razsodisce_setup() {
 	/*
 	 * Enable support for Post Formats.
 	 * See https://developer.wordpress.org/themes/functionality/post-formats/
+	 */
 	 
 	add_theme_support( 'post-formats', array(
-		'aside',
-		'image',
-		'video',
-		'quote',
+		#'aside',
+		#'file',
+		#'image',
+		#'video',
+		#'quote',
 		'link',
 	) );
-	*/
+	
 
 	// Set up the WordPress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'razsodisce_custom_background_args', array(
@@ -634,3 +636,27 @@ function clean_vars($query) {
 		
 	}
 }
+
+//getting the first link from content
+function get_my_url() {
+    if ( ! preg_match( '/<a\s[^>]*?href=[\'"](.+?)[\'"]/is', get_the_content(), $matches ) )
+        return false;
+ 
+    return esc_url_raw( $matches[1] );
+}
+
+//linking externals directlly
+function linking_files( $permalink, $postID ) {
+	
+	if(get_post_format()=='link')
+	{
+		$external_link = get_my_url();
+		if( !empty( $external_link ) ) {
+			$permalink = $external_link;
+		}
+	}
+	
+    return $permalink;
+}
+add_filter( 'post_link', 'linking_files', 10, 2 );
+
