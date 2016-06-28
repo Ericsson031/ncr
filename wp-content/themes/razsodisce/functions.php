@@ -650,9 +650,13 @@ function linking_files( $permalink, $postID ) {
 	
 	if(get_post_format()=='link')
 	{
+		$file = get_field("pdf_verzija_vsebine", $post->ID);
+		if(!empty($file))
+			return $file;
+		 
 		$external_link = get_my_url();
 		if( !empty( $external_link ) ) {
-			$permalink = $external_link;
+			return $external_link;
 		}
 	}
 	
