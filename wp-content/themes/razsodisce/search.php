@@ -122,7 +122,7 @@ get_header(); ?>
 					</h2>
 					<?php if($pagination):?>
 					<div class="col-sm-16 col-sm-offset-1 previous-years" style="display:none;">
-						<div>Pretekle razsodbe po letih</div>
+						<div> <?php echo $cat->description; ?> po letih</div>
 						<div class="slider-years" >
 							<?php foreach($years as $year):?>
 								<div class="slide">
