@@ -51,7 +51,7 @@ get_sidebar('search'); ?>
 				</form>
 			</div>
 			<div class="col-sm-18">
-				<div class="two-columns">
+				<div class="two-columns articles">
 					<?php
 					if ( $query->have_posts() ) {
 						while ( $query->have_posts() ) {
