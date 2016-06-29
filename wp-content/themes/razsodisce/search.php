@@ -78,31 +78,28 @@ get_header(); ?>
 			</div>
 			<div class="col-sm-17 col-sm-offset-2">
 				<header class="page-header row">
-					<?php 					
-							  
-						if(have_posts()):
-						
-						$years = array();
-						while ( have_posts() ) : the_post(); 
-						$years[]=get_the_time('Y');
-						endwhile; 
-						$years=array_unique($years);
-						$current_year=get_query_var('y', $years[0]);
-						if($current_year=="")
-							$current_year=$years[0];
-						
-						/*
-						if( $wp_query->post_count > 50)
-							$pagination = true;
-						else
-							$pagination = false;
-						*/
+					<?php 
 						
 						if(is_search())
 							$pagination = false;
 						else
-							$pagination = true;							
+							$pagination = true;	
 						
+						$current_year=get_query_var('y', $years[0]);
+							  
+						if(have_posts()):						
+						$years = array();
+						$counter=0;
+						while ( have_posts() ) : the_post();
+						if(!$pagination or get_the_time('Y') == $current_year)
+							$counter+=1;
+						$years[]=get_the_time('Y');
+						endwhile; 
+						$years=array_unique($years);
+						
+						
+						if($current_year=="")
+							$current_year=$years[0];
 					?>
 					<h2 class="col-sm-7">
 						<?php if (is_category( ))
@@ -134,7 +131,7 @@ get_header(); ?>
 					<?php endif;endif; ?>
 					
 				</header><!-- .page-header -->
-				<div class="<?php if($wp_query->post_count!=1) echo "two-columns"; ?> articles">
+				<div class="<?php if($counter!=1) echo "two-columns"; ?> articles">
 					<?php
 						//print_r(get_terms( 'oseba'));
 						if ( have_posts() ) :
