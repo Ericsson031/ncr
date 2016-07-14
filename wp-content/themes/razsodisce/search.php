@@ -45,17 +45,20 @@ get_header(); ?>
 						<input type="text" name="oseba" id="oseba" placeholder="Vpiši akterja" value="<?php echo str_replace('-',' ', get_query_var('oseba')); ?>">
 						<input type="text" name="medij" id="medij" placeholder="Vpiši medij" value="<?php echo str_replace('-',' ', get_query_var('medij')); ?>">
 						<div style="display: inline-block;">
-							<span style="float: left; font-size: 14px; line-height: 15px;">Vpiši člene* <br> kršitve kodeksa</span>
+							<span style="float: left; font-size: 14px; line-height: 15px;">Vpiši člene kodeksa:</span>
 						<input type="text" name="clen" id="clen" value="<?php echo preg_replace('/[^0-9,]/','',get_query_var('clen')); ?>" style="width: 30%; margin: 0px; float: right;">
 						</div>
 						<div class="help-text">Člene ločujte z vejicami (3,4)</div>
 						
-						<div class="help-text">*členi kodeksov po letih se ne ujemajo</div>
+						<div class="help-text">*členi se ne ujemajo</div>
 						<ul>
 							<?php $kodeksi=get_children(array('post_parent' => 1866, 'order' => 'DESC', 'post_type'=>'page'));
 							foreach ($kodeksi as $kodeks):?>
 								<li>
-									<a href="<?php $kodeks->guid ?>">Kodeks <?php echo $kodeks->post_title;?></a>
+									<?php //print_r($kodeks); ?>
+									<a href="<?php echo $kodeks->guid ?>">Kodeks <?php echo $kodeks->post_title;
+										if(current_kodeks()->ID==$kodeks->ID) echo " (v veljavi)"; ?>
+									</a>
 								</li>
 							<?php endforeach; ?>
 						</ul>

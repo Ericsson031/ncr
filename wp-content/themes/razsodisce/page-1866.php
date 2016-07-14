@@ -16,10 +16,10 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main row" role="main">
-			<div class="col-md-19">
+			<div class="col-md-24">
 
 			<?php
-			query_posts(array('post_type' => 'page', 'post_parent' =>1866, 'numberposts' => 1, 'order'=>'desc'));
+			query_posts(array('post_type' => 'page', 'post_parent' =>1866, 'showposts' => 1, 'order'=>'desc', 'orderby' => 'date',));
 			while ( have_posts() ) : the_post();
 
 				get_template_part( 'template-parts/content', 'page' );
@@ -32,18 +32,6 @@ get_header(); ?>
 			endwhile; // End of the loop.
 			?>
 			</div>
-			<div class="col-md-5">
-				<div class="entry-sidebar-sklep">Kodeksi po letih</div>
-					<ul class="entry-sidebar-kodeks">
-						<?php foreach(get_pages(array('child_of' =>1866, 'sort_order'=>'desc')) as $kodeks):?>
-						<li>
-							<a href="<?php echo $kodeks->guid;?>">Kodeks <?php echo $kodeks->post_title;?></a>
-						<?php endforeach; ?>
-						</li>
-					</ul>
-				</div>
-			</div>
-
 		</main><!-- #main -->
 	</div><!-- #primary -->
 

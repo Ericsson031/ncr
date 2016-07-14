@@ -645,6 +645,15 @@ function get_my_url() {
     return esc_url_raw( $matches[1] );
 }
 
+
+function current_kodeks(){
+	
+	$query = new WP_Query(array('post_type' => 'page', 'post_parent' =>1866, 'showposts' => 1, 'order'=>'desc', 'orderby' => 'date'));
+	$posts = $query->get_posts();
+	return $posts[0];
+}
+
+
 //linking externals directlly
 function linking_files( $permalink, $postID ) {
 	

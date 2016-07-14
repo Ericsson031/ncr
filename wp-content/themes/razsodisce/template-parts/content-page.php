@@ -12,9 +12,20 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<h1 class="entry-title">
-		<?php // if the page parent is kodeks, that we display this custom title ?>
-		<?php if("1866"==wp_get_post_parent_id( get_the_id())) echo "Novinarski kodeks - "?>
-		<?php the_title(); ?> </h1>
+		<?php // if the page parent is kodeks, that we display this custom title
+			$query = new WP_Query(array('post_type' => 'page', 'post_parent' =>1866, 'numberposts' => 1, 'order'=>'asc', 'orderby' => 'date',));
+			$posts = $query->get_posts();
+
+			$is_kodeks = "1866"==wp_get_post_parent_id( get_the_id());
+			
+			if(current_kodeks()->ID==get_the_id())
+				echo "Kodeks novinarjev Slovenije";
+			else{
+				if($is_kodeks) echo "Kodeks novinarjev Slovenije - ";
+				the_title();
+			}
+			?> </h1>
+			
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
