@@ -56,7 +56,7 @@
 											$filetype="doc"; ?>
 										class="dl-<?php echo $filetype ?>">
 
-											<img src="<?php echo $dir; ?>/img/icon-<?php echo $filetype ?>.png">
+											<img src="<?php echo get_bloginfo('template_directory'); ?>/img/icon-<?php echo $filetype ?>.png">
 										</a>
 										<?php echo array_pop(explode("/", $file)); ?>									
 								
@@ -134,14 +134,17 @@
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<header class="entry-header">
 							<div class="entry-meta">
-								<?php the_date(); ?>
+								<?php the_date(); ?> 
+								<?php edit_post_link( '(Uredi)');?>
 							</div><!-- .entry-meta -->
+							
 							<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 						</header><!-- .entry-header -->
 
 						<div class="entry-content">
 							<?php the_content(); ?>
 						</div><!-- .entry-content -->
+						
 
 					</article><!-- #post-## -->
 				</div>

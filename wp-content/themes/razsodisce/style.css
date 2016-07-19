@@ -1374,17 +1374,7 @@ h2 {
 	margin: 0px -25px 36px;
 }
 
-.orange .dl-pdf {
-	padding: 10px;
-	display: inline-block;
-}
-
-.orange .dl-doc {
-	padding: 10px;
-	display: inline-block;
-}
-
-.purple .dl-pdf {
+.dl-pdf , .dl-doc {
 	padding: 10px;
 	display: inline-block;
 }

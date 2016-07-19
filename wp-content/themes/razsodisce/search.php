@@ -55,9 +55,17 @@ get_header(); ?>
 							<?php $kodeksi=get_children(array('post_parent' => 1866, 'order' => 'DESC', 'post_type'=>'page'));
 							foreach ($kodeksi as $kodeks):?>
 								<li>
-									<?php //print_r($kodeks); ?>
-									<a href="<?php echo $kodeks->guid ?>">Kodeks <?php echo $kodeks->post_title;
-										if(current_kodeks()->ID==$kodeks->ID) echo " (v veljavi)"; ?>
+								<?php $start_year = str_replace('sprejet ','', $kodeks->post_title);?>
+									<a href="<?php echo $kodeks->guid; ?>"><?php 
+										if(current_kodeks()->ID==$kodeks->ID) 
+											echo "Kodeks novinarjev Slovenije";
+										else 
+										{
+											$start_year = str_replace('sprejet ','', $kodeks->post_title);
+											echo 'Kodeks '.$start_year.' - '.$end_year;
+										}
+										$end_year = $start_year;
+										?>
 									</a>
 								</li>
 							<?php endforeach; ?>
