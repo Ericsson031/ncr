@@ -570,10 +570,19 @@ function get_valid_kodeks($post=NULL){
 				//ko je pogoj ispolnjen, pomeni, da smo našli prvi kodeks, ki je starejši od razsodbe
 				//torej je bil v veljavi v času razsodbe
 				
+				$start_year = str_replace('sprejet ','', $kodeks->post_title);				
 				if(strtotime($kodeks->post_date) < strtotime(get_post_time('c')))
 				{	
+			
+					if(current_kodeks()->ID==$kodeks->ID) 
+						$kodeks->post_title = "Kodeks novinarjev Slovenije";
+					else{
+						$start_year = str_replace('sprejet ','', $kodeks->post_title);
+						$kodeks->post_title = 'Kodeks '.$start_year.' - '.$end_year;
+					}
 					break;
 				}
+				$end_year = $start_year;
 			}
 			return $kodeks;
 }
@@ -652,7 +661,6 @@ function current_kodeks(){
 	$posts = $query->get_posts();
 	return $posts[0];
 }
-
 
 //linking externals directlly
 function linking_files( $permalink, $postID ) {

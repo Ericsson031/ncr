@@ -35,6 +35,9 @@ class Updraft_Restorer extends WP_Upgrader {
 	
 	private $restore_this_table = array();
 
+	private $line = 0;
+	private $statements_run = 0;
+	
 	// Constants for use with the move_backup_in method
 	// These can't be arbitrarily changed; there is legacy code doing bitwise operations and numerical comparisons, and possibly legacy code still using the values directly.
 	const MOVEIN_OVERWRITE_NO_BACKUP = 0;
@@ -69,8 +72,8 @@ class Updraft_Restorer extends WP_Upgrader {
 		$this->ud_multisite_selective_restore = (is_array($restore_options) && !empty($restore_options['updraft_restore_ms_whichsites']) && $restore_options['updraft_restore_ms_whichsites'] > 0) ? $restore_options['updraft_restore_ms_whichsites'] : false;
 		$this->ud_restore_options = $restore_options;
 		
-		$this->ud_foreign = (empty($info['meta_foreign'])) ? false : $info['meta_foreign'];
-		if (isset($info['multisite'])) $this->ud_backup_is_multisite = $info['multisite'];
+		$this->ud_foreign = empty($info['meta_foreign']) ? false : $info['meta_foreign'];
+		if (isset($info['is_multisite'])) $this->ud_backup_is_multisite = $info['is_multisite'];
 		if (isset($info['created_by_version'])) $this->created_by_version = $info['created_by_version'];
 
 		parent::__construct($skin);
@@ -94,7 +97,7 @@ class Updraft_Restorer extends WP_Upgrader {
 		$this->strings['moving_backup'] = __('Moving unpacked backup into place...','updraftplus');
 		$this->strings['restore_database'] = __('Restoring the database (on a large site this can take a long time - if it times out (which can happen if your web hosting company has configured your hosting to limit resources) then you should use a different method, such as phpMyAdmin)...','updraftplus');
 		$this->strings['cleaning_up'] = __('Cleaning up rubbish...','updraftplus');
-		$this->strings['old_move_failed'] = __('Could not move old files out of the way.','updraftplus').' '.__('You should check the file permissions in your WordPress installation', 'updraftplus');
+		$this->strings['old_move_failed'] = __('Could not move old files out of the way.','updraftplus').' '.__('You should check the file ownerships and permissions in your WordPress installation', 'updraftplus');
 		$this->strings['old_delete_failed'] = __('Could not delete old directory.','updraftplus');
 		$this->strings['new_move_failed'] = __('Could not move new files into place. Check your wp-content/upgrade folder.','updraftplus');
 		$this->strings['move_failed'] = __('Could not move the files into place. Check your file permissions.','updraftplus');
@@ -719,7 +722,7 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		$now_done = apply_filters('updraftplus_pre_restore_move_in', false, $type, $working_dir, $info, $this->ud_backup_info, $this, $wp_filesystem_dir);
 		if (is_wp_error($now_done)) return $now_done;
-		
+
 		// A slightly ugly way of getting a particular result back
 		if (is_string($now_done)) {
 			$wp_filesystem_dir = $now_done;
@@ -807,7 +810,7 @@ class Updraft_Restorer extends WP_Upgrader {
 							return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
 						}
 					}
-				
+
 					// On the first time, create the -old directory in updraft_dir
 					// (Old style was: On the first time, move the existing data to -old)
 					if (!isset($this->been_restored[$type]) && empty($do_not_move_old)) {
@@ -914,17 +917,14 @@ class Updraft_Restorer extends WP_Upgrader {
 					'expected_oldhome' => $this->old_home,
 					'expected_oldcontent' => $this->old_content
 				), $import_table_prefix);
+				
+				# N.B. flush_rewrite_rules() causes $wp_rewrite to become up to date again - important for the no_mod_rewrite() call
 				$this->flush_rewrite_rules();
 
-				# N.B. flush_rewrite_rules() causes $wp_rewrite to become up to date again
-				if (function_exists('apache_get_modules')) {
-					global $wp_rewrite;
-					$mods = apache_get_modules();
-					if (($wp_rewrite->using_mod_rewrite_permalinks() && in_array('core', $mods) || in_array('http_core', $mods)) && !in_array('mod_rewrite', $mods)) {
-						$updraftplus->log("Using Apache, with permalinks (".get_option('permalink_structure').") but no mod_rewrite enabled - enable it to make your permalinks work");
-						$warn_no_rewrite = sprintf(__('You are using the %s webserver, but do not seem to have the %s module loaded.', 'updraftplus'), 'Apache', 'mod_rewrite').' '.sprintf(__('You should enable %s to make your pretty permalinks (e.g. %s) work', 'updraftplus'), 'mod_rewrite', 'http://example.com/my-page/');
-						echo '<p><strong>'.htmlspecialchars($warn_no_rewrite).'</strong></p>';
-					}
+				if ($updraftplus->mod_rewrite_unavailable()) {
+					$updraftplus->log("Using Apache, with permalinks (".get_option('permalink_structure').") but no mod_rewrite enabled - enable it to make your permalinks work");
+					$warn_no_rewrite = sprintf(__('You are using the %s webserver, but do not seem to have the %s module loaded.', 'updraftplus'), 'Apache', 'mod_rewrite').' '.sprintf(__('You should enable %s to make any pretty permalinks (e.g. %s) work', 'updraftplus'), 'mod_rewrite', 'http://example.com/my-page/');
+					echo '<p><strong>'.htmlspecialchars($warn_no_rewrite).'</strong></p>';
 				}
 
 			break;
@@ -1413,18 +1413,20 @@ ENDHERE;
 		$this->lock_forbidden = false;
 
 		$this->last_error = '';
-		$random_table_name = 'updraft_tmp_'.rand(0,9999999).md5(microtime(true));
+		$random_table_name = 'updraft_tmp_'.rand(0, 9999999).md5(microtime(true));
 
 		// The only purpose in funnelling queries directly here is to be able to get the error number
 		if ($this->use_wpdb) {
-			$req = $wpdb->query("CREATE TABLE $random_table_name");
+			$req = $wpdb->query("CREATE TABLE $random_table_name (test INT)");
+			// WPDB, for several query types, returns the number of rows changed; in distinction from an error, indicated by (bool)false
+			if (0 === $req) { $req = true; }
 			if (!$req) $this->last_error = $wpdb->last_error;
 			$this->last_error_no = false;
 		} else {
 			if ($this->use_mysqli) {
-				$req = mysqli_query($this->mysql_dbh, "CREATE TABLE $random_table_name");
+				$req = mysqli_query($this->mysql_dbh, "CREATE TABLE $random_table_name (test INT)");
 			} else {
-				$req = mysql_unbuffered_query("CREATE TABLE $random_table_name", $this->mysql_dbh);
+				$req = mysql_unbuffered_query("CREATE TABLE $random_table_name (test INT)", $this->mysql_dbh);
 			}
 			if (!$req) {
 				$this->last_error = ($this->use_mysqli) ? mysqli_error($this->mysql_dbh) : mysql_error($this->mysql_dbh);
@@ -1437,7 +1439,8 @@ ENDHERE;
 			# If we can't create, then there's no point dropping
 			$this->drop_forbidden = true;
 			echo '<strong>'.__('Warning:', 'updraftplus').'</strong> ';
-			$updraftplus->log_e('Your database user does not have permission to create tables. We will attempt to restore by simply emptying the tables; this should work as long as a) you are restoring from a WordPress version with the same database structure, and b) Your imported database does not contain any tables which are not already present on the importing site.', ' ('.$this->last_error.')');
+			$updraftplus->log_e('Your database user does not have permission to create tables. We will attempt to restore by simply emptying the tables; this should work as long as a) you are restoring from a WordPress version with the same database structure, and b) Your imported database does not contain any tables which are not already present on the importing site.');
+			$updraftplus->log('Error was: '.$this->last_error.' ('.$this->last_error_no.')');
 		} else {
 		
 			if (1142 === $this->lock_table($random_table_name)) {
@@ -1447,6 +1450,8 @@ ENDHERE;
 		
 			if ($this->use_wpdb) {
 				$req = $wpdb->query("DROP TABLE $random_table_name");
+				// WPDB, for several query types, returns the number of rows changed; in distinction from an error, indicated by (bool)false
+				if (0 === $req) { $req = true; }
 				if (!$req) $this->last_error = $wpdb->last_error;
 				$this->last_error_no = false;
 			} else {
@@ -1463,7 +1468,7 @@ ENDHERE;
 			if (!$req && ($this->use_wpdb || $this->last_error_no === 1142)) {
 				$this->drop_forbidden = true;
 				echo '<strong>'.__('Warning:','updraftplus').'</strong> ';
-				$updraftplus->log_e('Your database user does not have permission to drop tables. We will attempt to restore by simply emptying the tables; this should work as long as you are restoring from a WordPress version with the same database structure (%s)', ' ('.$this->last_error.')');
+				$updraftplus->log_e('Your database user does not have permission to drop tables. We will attempt to restore by simply emptying the tables; this should work as long as you are restoring from a WordPress version with the same database structure (%s)', ' ('.$this->last_error.', '.$this->last_error_no.')');
 			}
 		}
 
@@ -1755,9 +1760,9 @@ ENDHERE;
 			} elseif (preg_match('/^use /i', $sql_line)) {
 				# WPB2D produces these, as do some phpMyAdmin dumps
 				$sql_type = 7;
-			} elseif (preg_match('#/\*\!40\d+ SET NAMES (\S+)#', $sql_line, $smatches)) {
+			} elseif (preg_match('#/\*\!40\d+ SET NAMES (.*)\*\/#', $sql_line, $smatches)) {
 				$sql_type = 8;
-				$this->set_names = $smatches[1];
+				$this->set_names = rtrim($smatches[1]);
 			} else {
 				# Prevent the previous value of $sql_type being retained for an unknown type
 				$sql_type = 0;
@@ -1835,7 +1840,7 @@ ENDHERE;
 		return;
 		// Not yet working
 		if ($this->use_wpdb) {
-			$$wpdb->query("UNLOCK TABLES;");
+			$wpdb->query("UNLOCK TABLES;");
 		} elseif ($this->use_mysqli) {
 			$req = mysqli_query($this->mysql_dbh, "UNLOCK TABLES;");
 		} else {
@@ -1848,9 +1853,9 @@ ENDHERE;
 		$this->configuration_bundle = array();
 		// Some items must always be saved + restored; others only on a migration
 		// Remember, if modifying this, that a restoration can include restoring a destroyed site from a backup onto a fresh WP install on the same URL. So, it is not necessarily desirable to retain the current settings and drop the ones in the backup.
-		$keys_to_save = array('updraft_remotesites', 'updraft_migrator_localkeys');
+		$keys_to_save = array('updraft_remotesites', 'updraft_migrator_localkeys', 'updraft_central_localkeys');
 
-		if ($this->old_siteurl != $this->our_siteurl) {
+		if ($this->old_siteurl != $this->our_siteurl || @constant('UPDRAFTPLUS_RESTORE_ALL_SETTINGS')) {
 			global $updraftplus;
 			$keys_to_save = array_merge($keys_to_save, $updraftplus->get_settings_keys());
 			$keys_to_save[] = 'updraft_backup_history';
@@ -1936,6 +1941,8 @@ ENDHERE;
 
 			if ($this->use_wpdb) {
 				$req = $wpdb->query($sql_line);
+				// WPDB, for several query types, returns the number of rows changed; in distinction from an error, indicated by (bool)false
+				if (0 === $req) { $req = true; }
 				if (!$req) $this->last_error = $wpdb->last_error;
 			} else {
 				if ($this->use_mysqli) {

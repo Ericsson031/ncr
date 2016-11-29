@@ -24,7 +24,7 @@ get_header(); ?>
 									Kako se pritožiti?
 								</div>
 								<div class="content-area-index-body">
-									Če se želite pritožiti zaradi novinarskega prispevka, ki po vašem mnenju krši določila Kodeksa novinarjev Slovenije je običajno najbolje o tem najprej pisno obvestiti novinarja, avtorja članka (radijske ali tv oddaje ipd.) in urednika oz. odgovornega urednika medija, v katerem je bil ta izdelek objavljen. To je običajno najhitrejši način, če hočete doseči popravek ali opravičilo za netočnosti ali druga dejanja novinarja, ki po vašem mnenju niso v skladu z etičnimi standardi. Če se novinar in/ali urednik ne odzove(ta) na vaše opozorilo, če vam odziv ne ugaja ali če menite, da pritožba mediju ni smiselna, nam pišite, takoj ko je mogoče.
+									Če se želite pritožiti zaradi novinarskega prispevka, ki po vašem mnenju krši določila Kodeksa novinarjev Slovenije, je običajno najbolje o tem najprej pisno obvestiti novinarja, avtorja članka (radijske ali TV oddaje ipd.) in urednika oziroma odgovornega urednika medija, v katerem je bil  izdelek objavljen. To je običajno najhitrejši način, če hočete doseči popravek ali opravičilo za netočnosti ali druga dejanja novinarja, ki po vašem mnenju niso v skladu z etičnimi standardi. Če se novinar in/ali urednik ne odzove(ta) na vaše opozorilo, če vam odziv ne ugaja ali če menite, da pritožba mediju ni smiselna, nam pišite takoj, ko je mogoče.
 								</div>
 								<div class="content-area-index-more">
 									<a href="/index.php/vlozite-pritozbo">VEČ</a>

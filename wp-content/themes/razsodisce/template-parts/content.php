@@ -66,7 +66,7 @@
 								<?php $kodeks = get_valid_kodeks();?>
 								<ul class="entry-sidebar-kodeks">
 									<li>
-										<a href="<?php echo $kodeks->guid; ?>">Novinarski kodeks <?php echo $kodeks->post_title; ?></a>
+										<a href="<?php echo $kodeks->guid; ?>"><?php echo $kodeks->post_title; ?></a>
 									</li>
 								</ul>
 								<div class="entry-sidebar-sklep">Obravnavani členi</div>
